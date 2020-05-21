@@ -38,8 +38,5 @@ jobs:
     - name: Type Checks
       run: vendor/bin/phpstan analyse --ansi
 
-    - name: Unit Tests
-      run: bin/pest --colors=always --exclude-group=integration
-
-    - name: Integration Tests
-      run: bin/pest --colors=always --group=integration
+    - name: Unit Tests & Integration Tests
+      run: bin/pest
