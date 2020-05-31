@@ -7,7 +7,6 @@ namespace Pest\Concerns;
 use Closure;
 use Pest\Support\ExceptionTrace;
 use Pest\TestSuite;
-use PHPUnit\Util\Test;
 
 /**
  * To avoid inheritance conflicts, all the fields related
@@ -140,6 +139,14 @@ trait TestCase
         ExceptionTrace::ensure(function () use ($closure, $arguments) {
             call_user_func_array(Closure::bind($closure, $this, get_class($this)), $arguments);
         });
+    }
+
+    /**
+     * Returns the test filename.
+     */
+    public function getFilename(): string
+    {
+        return self::$__filename;
     }
 
     public function getPrintableTestCaseName(): string

@@ -7,6 +7,7 @@ namespace Pest\Factories;
 use Closure;
 use Pest\Concerns;
 use Pest\Contracts\HasPrintableTestCaseName;
+use Pest\Contracts\Test;
 use Pest\Datasets;
 use Pest\Support\HigherOrderMessageCollection;
 use Pest\Support\NullClosure;
@@ -167,6 +168,7 @@ final class TestCaseFactory
         }
 
         $hasPrintableTestCaseClassFQN = sprintf('\%s', HasPrintableTestCaseName::class);
+        $hasContractTestClassFQN      = sprintf('\%s', Test::class);
         $traitsCode                   = sprintf('use %s;', implode(', ', array_map(function ($trait): string {
             return sprintf('\%s', $trait);
         }, $this->traits)));
@@ -179,7 +181,7 @@ final class TestCaseFactory
         eval("
             namespace $namespace;
 
-            final class $className extends $baseClass implements $hasPrintableTestCaseClassFQN {
+            final class $className extends $baseClass implements $hasPrintableTestCaseClassFQN, $hasContractTestClassFQN {
                 $traitsCode
 
                 private static \$__filename = '$filename';
